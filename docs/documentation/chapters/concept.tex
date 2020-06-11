@@ -1,0 +1,61 @@
+\chapter{Concept and Design}
+\label{cha:conceptanddesign}
+
+\begin{figure}
+    
+    \centering
+\includegraphics[width=1\textwidth]{images/system.png}
+\caption{System flow}\label{fig:example2}
+
+\end{figure}
+
+In this chapter we elaborate on the concept of the presented system and relevant design choices that were made during the development process.\\\\
+A decentralized marketplace is an online marketplace where developers can upload software services. Users can use these software services either for composing higher-level services and for building applications or just for using them. It is a system which ensures trustlessness property which guarantees rules of interaction that are known to and agreed upon by all participants of the system, and which are immutable. These guarantees are enforced through, a set of mechanisms for decentralizing the enforcement of rules in a system, thereby removing the need for and existence of trusted intermediaries.\cite{Klems2017TrustlessII} It is a peer-to-peer system which connects users through a shared public blockchain network, Ethereum - featuring smart contract functionality. Smart contracts are self executing and using these smart contracts make the rules of interaction between users transparent to everyone(more details can be found in the implementation section).\\\\ 
+\section{Components/Users Overview}\\
+
+\subsection{Entity}
+An entity can be considered as an organization which consists of one or more users. The concept of entity is important in the Decentralized marketplace, because all the applications and API's are hosted in the marketplace in the context of an entity. All the application/API are owned by entity and not a user. 
+\subsection{User}
+Any user who uses the Decentralized Marketplace is considered as a user. A user can be identified in two different views.\\
+\\
+\textbf{(i) User}\\
+\textbf{(ii) Developer}\\
+\\
+The user is a person who wanted to make use of the services provided by the Marketplace. Such a user can make use of only the search functionality within the Marketplace and lookup for the applications which he/she is interested in. User will get the details about that application and can get them installed in his/her machine/server. User can use this feature of the marketplace without being registered in the marketplace.
+\\
+\\
+The developer is a person who contribute to the marketplace. A developer can publish new application/API in the markerplace. Inorder to host/publish new application/API developer needs to be registered with marketplace. Also, a user need to be part of an entity inorder to publish new application/API in the marketplace. Developer can be part of any existing entity or can create new entity.
+\subsection{Application}
+The application registered within the marketplace.
+
+\subsection{API}
+The API registered within the marketplace.
+\\
+\\
+All the components of the marketplace are identified by a unique identifier and a unique name. Each component is associated with a public private key pair and id uniquely identified by the hash of the public key. We use Metamask to handle all the identities and keypairs. Users can easily create new account from Metamask and and the metamask account address will automatically be the the hash of the newly created public key.
+\\
+\\
+The Decentralized marketplace will be hosted in multiple servers and will also be available in gitlab. Any users who wanted to use the marketplace can get the source and get it installed. Marketplace requires some prerequisites such as Metamask. All the prerequisites and the installations steps are provided in the readme.md file. Users can follow the steps to get started with the marketplace.
+\\
+\\
+A normal user who doesn't wants to publish application/API with Decentralized marketplace can use the search functionality in order to search for existing  application/API. Users can retrieve the metadata of the application and can install them in their own servers. A developer who wants to publish new application/API should get registered with the marketplace first. Also, marketplace constraints the users to publish application/API directly. Users should be part of an entity in order to be able to publish the same. Users can be part of any existing entities or can create a new entity.
+\\
+\\
+Any applications hosted in the marketplace should implement the API's which are already published within the marketplace. By this way we can ensure that all the application within the marketplace conforms to the same standards. Decentralized marketplace also supports versioning for applications and APS's using which users can publish new versions of Applications and APIs. As the marketplace is based on blockchain, if an application/API is published once, it cannot be deleted due to immutable nature of this technology. Hence, users can use the versioning to update anything related to application/API.   
+\\
+\\
+\section{Website Design Overview}
+A good first impression is a key for a system to succeed. Therefore one of our goal was to develop a website which is intuitive and easy to use. We started with designing mock-ups as shown in Figure 3.2. \\\\
+
+\begin{figure}[h]
+ \centering
+\includegraphics[width=1\textwidth]{images/Mockups.png}
+\caption{Design mockups}\label{fig:example2}
+\end{figure}
+
+\textbf{(i) Welcome Page} - It shows guidelines about the marketplace on the left side of the page. Whereas on the right side there are three buttons, first one is for a new user to register. Second one is for existing user to get into the marketplace and third one to search any App or API in the marketplace.\\
+\textbf{(ii) Entity Details} - This screen will show all the entities associated with the user in the marketplace and a user can register a new entity by clicking on register entity button.\\
+\textbf{(iii) Application/API registration} - This is the screen where a user can upload any new API, App and can add a existing user of marketplace to the entity.\\
+\textbf{(iv) Search Page} - It is where a non developer user can just search for any API, application or user which are present in the marketplace. User can download application/API from the url listed in the details of search and start using the decentralized application/API.\\\\
+We used react.js for our frontend development (Detailed description can be found in the implementation section).
+

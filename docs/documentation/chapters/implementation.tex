@@ -1,0 +1,99 @@
+\chapter{Implementation}
+\label{cha:implementation}
+
+Taking this idea in deep, a decentralized marketplace is a marketplace that doesn't have a single authority owning or managing it, which in turn enhances its security, resiliency, transparency, and traceability. Our marketplace is fully decentralized where anyone can join and use the marketplace. Distributed ledger technologies (DLTs) allow creation of these decentralized marketplaces. In this section we describe our work on decentralized marketplaces using smart contracts. For the development of smart contract for decentralized marketplace, we used Solidity programming language, which is the most popular and recommended contract-oriented language for Ethereum blockchain. It has major similarities to Java and JavaScript, which makes it easy for the programmer of other languages to get acquainted with it. However, the current implementation of Solidity has some flaws and it's under development, we hope these issues will be addressed in future. We used online Remix IDE for the development of smart contract and deployed it on the test netowrks (Ropsten and Goreli) provided by the ethereum. Metamask a browser based plugin for managing wallet accounts is used for communication with the test network. 
+
+\section{Backend : Ethereum - Smartcontract}
+Ethereum is an open-source, public, blockchain-based distributed computing platform featuring smart contract functionality. Using smart contracts we can define the behaviour of marketplace within the Ethereum state. Solidity is an object-oriented, high-level language for implementing smart contracts. The backend of Decentralized Marketplace is developed in solidity.\cite{WEBSITE:1}
+\\
+\\
+The decentralized resource record (DRR) for each component is implemented as a struct in solidity. And we have the identity of each component mapped to the DRR using mapping data structure in solidity. Identity is the hash value of the public key which you can get from metamask wallet as a address and it begins with 0x. The unique name of each component is also mapped to the unique identifier using mapping data structure. Hence we can resolve a DRR of a component from its name. These data structures are defined in order to store the metadata information of the application, API, entity and user. The DRR which we defined are as mentioned below:
+\\
+\\
+\textbf{(i) UserDRR}
+\\
+\\
+A user in the decentralized marketplace has following attributes defined in the DRR. Identity is used as a uniquely identifer. PublicKey is used for commmunication with the user server, this has nothing to do with marketplace. URL is the address where applications/API's are hosted and others will download from this location and install them on their own device/server. A boolean is used internally just to check whether user is already registered in the marketplace or not. 
+
+\begin{lstlisting}
+    struct UserDRR {
+        address identity;
+        string publicKey;
+        string url;
+        bool isValue;
+    }
+\end{lstlisting}
+\textbf{(ii) EntityDRR}
+\\
+\\
+An entity in the decentralized marketplace has following properties. Identity is used as  a uniquely identifer. Entity can be owned by list of owners. It has list of users and they manage applications/API's on behalf of the entity. List of application and API identities associated with the entity are stored in DRR. A boolean is used internally just to check whether entity is already registered in the marketplace or not.
+
+\begin{lstlisting}
+struct EntityDRR {
+        address identity;
+        address[] owners;
+        address[] users;
+        address[] apps;
+        address[] apis;
+        bool isValue;   
+    }
+    \end{lstlisting}
+    \textbf{(iii) AppDRR}
+\\
+\\
+An application in the decentralized marketplace has following properties. Identity is used as a uniquely identifer. Creator of the application is defined as the owner of it. Application has multiple versions published on the marketplace hence each application has a list of application versions DRR.
+
+ \begin{lstlisting}
+    struct AppDRR {
+        address identity;
+        address owner;
+        bool isValue;
+        AppVersion[] versions;
+    }
+    \end{lstlisting}
+    \textbf{(iv) ApiDRR}
+\\
+\\
+An API in the decentralized marketplace has following properties. Identity is used as a uniquely identifer. Creator of the API is defined as the owner of it. Like application, API has multiple versions published and each API has a list of API versions DRR.
+
+\begin{lstlisting}    
+    struct ApiDRR {
+        address identity;
+        address owner;
+        bool isValue;
+        ApiVersion[] versions;
+    }
+\end{lstlisting}
+
+\textbf{(v) AppVersion}
+\\
+\\
+Every version of application has three parameters. Id of the version for example: V1.0.0. Each version of application can be hosted on different servers of the user, url is defined for this purpose. Each version can implement different set of API's. In solidity we cannot pass list of string from javascript hence we made a comma separated string of API's and then passed it to solidity.
+\begin{lstlisting}    
+    struct AppVersion {
+        string id;
+        string url;
+        string api;
+    }
+\end{lstlisting}
+
+\textbf{(vi) APIVersion}
+\\
+\\
+Each API version has two parameters. id of the version for example V1.1. Each version of API  can be hosted on different servers of the user, url is defined for this purpose.
+\begin{lstlisting}    
+    struct ApiVersion {
+        string id;
+        string url;
+    }
+\end{lstlisting}
+
+Due to some limitations of solidity we designed our some functions other way around. For example; We cannot return a list of string from solidity to frontend. In order to solve this issue we encrypt the list of string and return a hash value of bytestream. On frontend we are decoding this hash to original list of string. In solidity, events are emitted in order to return values of certain types, in our case it is boolean. In solidity also we cannot return struct data structure as well, to do so we need to return individual property of struct which results multiple return. All functionalities of smart contract are defined in DecentralizedMarketPlace.sol file with comments and detailed description. We believe that in future these issues will be solved and it can be improved.
+
+\section{Frontend : React}
+There are plenty of javascript frameworks for development of frontend. But our decentralized marketplace is based on react.js. It is a open source framework based on javascript developed by Facebook. Its component based library lets you build high-quality user interfaces for web apps. We use material UI for our some UI components. All dependencies can be found in package.json file. The smart contract is deployed in any test network and on downloading this marketplace package from gitlab or hosted somewhere in the cloud, the ABI definition and contract address of smart contract are defined in the properties file in the react project. We used web3.js library to interact with blockchain. Although the frontend is not rich due to time constraints we focused more on functionality level.
+\section{Metamask}
+Metamask is a browser extension for accessing ethereum enabled distributed applications from your browser. This extension injects Ethereum web3 API into every websites javascript context so that dapps can read from blockchain. It allows you to run Ethereum dApps right in your browser without running a full Ethereum node. MetaMask includes a secure identity vault, providing a user interface to manage your identities on different sites and sign blockchain transactions. \cite{Metamask}
+\\
+\\
+Decentralized marketplace uses metamask for interacting with the backend ethereum blockchain and also as a identity vault to generate identities for the marketplace components (User, Entity. Application, API), and to securely store them.

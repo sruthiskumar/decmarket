@@ -1,0 +1,88 @@
+\chapter{Evaluation}
+\label{cha:evaluation}
+
+As our marketplace is based on Ethereum blockchain network, evaluating the results comes with certain difficulties. To test our system, we used Ropsten and Goerli test networks to evaluate all of our cases. In marketplace, we are storing metadata information of applications and API's instead of hosting the actual implementation in our network. On every submission from the front end, a transaction fee is charged and the results appears after confirmation of the transactions. We discussed what are the functionalities that should be covered within this study and created multiple different cases of possible functionality.
+
+\section {Registration}
+\subsection{User} Decentralized marketplace allows users to publish decentralize applications and API's like developers do on android play store and apple app store. In order to do that a user should be registered first in our marketplace. There is no any single party which controls the user and purpose of registration is that so later on entities can add number of users inside it, where they will manage applications and API's on behalf of the entity. For user registration, an account on metamask wallet should be created first and then three mandatory fields are required. We are accessing user's wallet public address via web3.js object in react.js\\\\
+\textbf{(i) User Name} 
+A user name must be unique. If we try to register with a already existing name, then it will show an error (User name already exist) and the registration process will not be successful.\\
+\textbf{(ii) URL}
+A user will provide URL of its own server, where his personal data,  applications and API's are hosted.\\
+\textbf{(iii) Key}
+Its a communication key provided by the user in order to communicate with other peers in the network, so that everybody cannot spam the server with unlimited requests. It is like a public private key pair authentication mechanism, where this key resembles to the public key of the key pair.
+\subsection {Entity} Entity is defined as a organization which publishes and maintains bunch of applications and API's. Owner of entity is allowed to add new existing users in the entity. In order to register an entity in the decentralized marketplace owner should be registered first as a user in the marketplace. For registering an entity two input fields for required\\\\
+\textbf{(i) Identifier} 
+An identifier address (public address of metamask wallet account) should be provided for entity registration.\\
+\textbf{(ii) Entity Name}
+An entity name must be unique. If registering with already existing name, then it will through an error and the entity can not be registered.\\
+
+\section{Application/API Registration}
+The core purpose of marketplace comes under this section. If a user wants to upload metadata of application and API's on the marketplace, then there are two preconditions.\\\\
+\textbf{(i) User should be registered} 
+\\
+\textbf{(ii) User should be a part of an entity}\\
+\\
+An entity can either upload new API and application or add an existing registered user to the entity.
+\subsection {API}
+Four fields are required to upload a new API.\\\\
+\textbf{(i) API Name} 
+Each API is identified by a unique name in the marketplace hence API name must be unique otherwise it will show an error and the API can't be registered.\\
+\textbf{(ii) Key}
+An Identifier address (public address of metamask wallet account) of the API.\\
+\textbf{(iii) Version}
+In practical world, API implementations goes through multiple iterations and updated with the time. In order to support versioning of API's, marketplace required that user should provide version of the API so later on it will be easy to maintain a list of all available versions.\\
+\textbf{(iv) URL}
+The actual implementation of API is hosted on the server of the user some where in the cloud or at home device, and it can be accessed by this URL.\\
+
+\subsection {Application}
+Marketplace allows users to register application which implements set of available API's already registered in the marketplace. Like API registration, application also required to provide same fields along with defining the set of API's implemented by application.\\\\
+\textbf{(i) URL}
+The actual implementation of application is hosted on the server of the user some where in the cloud or at home device, and it can be accessed by this URL.\\
+\textbf{(ii) Key}
+An identifier address (public address of metamask wallet account) should provided for application registration.\\
+\textbf{(iii) Application Name} 
+Each application is identified by a unique name in the marketplace hence application name must be unique otherwise it will show an error and the application can't be registered.\\
+\textbf{(iv) APP Version}
+Users can publish multiple versions of a single application, hence in order to maintain a list of versions available, user should provide version of the application.\\
+\textbf{(v) API Name}
+An application must implement set of API's which have already been registered in the marketplace. For this, a user have to enter an API name and all the available versions of that API will appear in a drop down. A user can add multiple API's implemented by application.\\
+\textbf{(vi) API Version}
+As explained earlier, API's also have multiple versions available in the marketplace so user have to pick one of the API version from that drop down and add that version of the API into the application.
+
+\subsection {User} Applications and API's of an entity are managed by existing users in marketplace. Entity can add existing users within the entity. In order to do that entity need to know the identifier of the user.\\\\
+\textbf{(i) Identifier}
+The unique address of the user, already registered in the marketplace.\\
+
+\section{Entity} Entity is acting as a parent object in this marketplace. As mentioned above user has to be a part of an entity to be able to upload applications and API's.\\
+
+\subsection {Entity details}
+Entity details functionality allows a user to fetch list of API's, applications and users registered within that entity. Firstly it will show names of the selected option(API, app or user). Then after clicking on the names we can see details of the selected one.\\
+
+\subsection {Update API}
+After fetching the details of any of an API. We can also add new version of that API. For that we have to provide two input parameters.\\\\
+\textbf{(i) Version}
+A user should provide the new version of the existing API.\\
+\textbf{(ii) URL}
+URL of new version of API where it is hosted, so other users of marketplace can access it.\\
+
+\subsection {Update Application}
+Similarly for application as well, after fetching the details of any of the registered application. We can also add new version of that application. For that we have to provide four input parameters.\\\\
+\textbf{(i) URL}
+URL of the new version of the application where it is hosted, so other users of marketplace can access it.\\
+\textbf{(ii) APP Version}
+A user should provide the new version of the existing application.\\
+\textbf{(iii) API Name}
+As application implements set of API's which has already been registered in the marketplace. In new version of application user need to provide a list of all API's which has been implemented in this version.\\
+\textbf{(iv) API Version}
+User has to pick one of the API version from the drop down and add that version of the API into the application.\\
+
+\section{Search} Search feature doesn't require a user to get registered in the marketplace. Any user can search in the marketplace and discover the desired application, API and users of the marketplace. As a search result user can get the information regarding application and API. In blockchain, we cannot offer full text search hence proper name should be given for search. After fetching the details of application or API, user can download the packages from the URL defined in the details.\\
+
+\subsection {API}
+Users can search API by providing the name in the search field and selecting API radio button option correspondingly.
+\subsection {Application}
+Similarly, Users can search application by providing the name in the search field and selecting application radio button option correspondingly.
+\subsection {User}
+Users can search for other users in the marketplace as well by providing the name in the search field and selecting user radio button option. Same as we do in social media platforms in order to communicate with others.
+\section{User Account} If a user is already registered in the marketplace then he has to click on user account to authenticate himself. It resembles the functionality of the login feature. We are authenticating user by verifying the address that whether it exist in the marketplace or not, hence it is mandatory to select the registered account address of user in the metamask. Web3.js object will access this account address and verify it from the marketplace data stored in the blockchain.
